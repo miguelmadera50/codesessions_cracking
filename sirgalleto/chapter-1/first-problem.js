@@ -15,7 +15,7 @@ function isUniqueCharacterString(string) {
 
 function isUniqueCharacterStringNoDataStructure(string) {
   for (let index = 0; index < string.length; index++) {
-    for (let secondaryIndex = index + 1; secondaryIndex < string.length - 1; secondaryIndex++) {
+    for (let secondaryIndex = index + 1; secondaryIndex < string.length; secondaryIndex++) {
       if (string[index] === string[secondaryIndex]) {
         return false
       }
@@ -28,6 +28,7 @@ function isUniqueCharacterStringNoDataStructure(string) {
 const caseOne = 'uniqe';
 const caseTwo = 'nonunique';
 const caseThree = 'hello';
+const caseFour = 'asa';
 
 assert(isUniqueCharacterString(caseOne), true, caseOne);
 assert(isUniqueCharacterString(caseTwo), false, caseTwo);
@@ -36,4 +37,5 @@ assert(isUniqueCharacterString(caseThree), false, caseThree);
 assert(isUniqueCharacterStringNoDataStructure(caseOne), true, caseOne);
 assert(isUniqueCharacterStringNoDataStructure(caseTwo), false, caseTwo);
 assert(isUniqueCharacterStringNoDataStructure(caseThree), false, caseThree);
+assert(isUniqueCharacterStringNoDataStructure(caseFour), false, caseFour);
 
