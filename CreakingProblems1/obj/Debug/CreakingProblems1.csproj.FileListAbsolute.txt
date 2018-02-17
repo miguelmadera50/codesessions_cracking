@@ -1,0 +1,6 @@
+c:\users\anyx\documents\visual studio 2015\Projects\CreakingProblems1\CreakingProblems1\bin\Debug\CreakingProblems1.exe.config
+c:\users\anyx\documents\visual studio 2015\Projects\CreakingProblems1\CreakingProblems1\bin\Debug\CreakingProblems1.exe
+c:\users\anyx\documents\visual studio 2015\Projects\CreakingProblems1\CreakingProblems1\bin\Debug\CreakingProblems1.pdb
+c:\users\anyx\documents\visual studio 2015\Projects\CreakingProblems1\CreakingProblems1\obj\Debug\CreakingProblems1.csprojResolveAssemblyReference.cache
+c:\users\anyx\documents\visual studio 2015\Projects\CreakingProblems1\CreakingProblems1\obj\Debug\CreakingProblems1.exe
+c:\users\anyx\documents\visual studio 2015\Projects\CreakingProblems1\CreakingProblems1\obj\Debug\CreakingProblems1.pdb
