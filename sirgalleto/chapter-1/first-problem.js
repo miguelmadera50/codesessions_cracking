@@ -33,6 +33,7 @@ const caseFour = 'asa';
 assert(isUniqueCharacterString(caseOne), true, caseOne);
 assert(isUniqueCharacterString(caseTwo), false, caseTwo);
 assert(isUniqueCharacterString(caseThree), false, caseThree);
+assert(isUniqueCharacterString(caseFour), false, caseThree);
 
 assert(isUniqueCharacterStringNoDataStructure(caseOne), true, caseOne);
 assert(isUniqueCharacterStringNoDataStructure(caseTwo), false, caseTwo);
