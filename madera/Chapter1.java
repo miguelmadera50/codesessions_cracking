@@ -89,4 +89,28 @@ class Chapter1 {
         }
         return true;
     }
+
+    // O(n) in-place approach, simply traversing backwards and inserting with two references
+    private String problem3(String string) {
+        boolean initspaces = true;
+        char[] arr = string.toCharArray();
+        int last_index = string.length() - 1;
+
+        for (int i = string.length() - 1; i >= 0 ; i--) {
+            if (initspaces && arr[i] == ' ') continue;
+            else initspaces = false;
+
+            if (arr[i] == ' ') {
+                arr[last_index] = '0';
+                arr[last_index - 1] = '2';
+                arr[last_index - 2] = '%';
+                last_index -= 3;
+            } else {
+                arr[last_index] = arr[i];
+                last_index--;
+            }
+        }
+        return String.valueOf(arr);
+    }
+
 }
