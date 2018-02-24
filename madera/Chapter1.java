@@ -57,4 +57,23 @@ class Chapter1 {
         }
         return true;
     }
+
+    // O(n) approach, similar to last problem, using bit array to account for duplicate characters
+    private boolean problem2(String a, String b) {
+        if (a.length() != b.length()) return false;
+
+        int[] intarr = new int[26];
+        char[] a_arr = a.toCharArray();
+        char[] b_arr = b.toCharArray();
+
+        for (int i = 0; i < a.length(); i++) {
+            intarr[a_arr[i] - 'a']++;
+            intarr[b_arr[i] - 'a']--;
+        }
+
+        for (int i: intarr) {
+            if (i != 0) return false;
+        }
+        return true;
+    }
 }
