@@ -1,0 +1,101 @@
+1.1
+// Is Unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use
+// additional data structures?
+Positive - assuming only 26 chars
+""
+"a"
+"abc"
+"qwertyuiopasdfghjklzxcvbnm"
+
+Negative - assuming only 26 chars
+"aa"
+"qwertyuiopasdfghjklzxcvbnq"
+"qwertyuiopasdfghjklzxcvbnzuythe"
+"qwertyhnbgfdsabzxc"
+
+
+1.2
+// Check Permutation: Given two strings, write a method to decide of one is a permutation of the other.
+Positive - assuming only 26 chars
+"" ""
+"a" "a"
+"zzzzzzz" "zzzzzzz"
+"abcd" "dcba"
+"qwertty" "tqweryt"
+
+Positive - assuming only 26 chars
+"a" "b"
+"a" "aa"
+"aaaaa" "aa"
+"qwerty" "qwerti"
+"miridso" "miridsd"
+
+
+1.3
+// URLify: Write a method to replace all spaces in a string with '%20'. You may assume that the string has
+// sufficient space at the end to hold the additional characters, and that you are given the 'true' length of
+// the string.
+Assuming asterisks as nulls/extrachar. Only using 26 chars
+"a b**" -> "a%20b"
+"a b ****" -> "a%20b%20"
+"a    b********" -> "a%20%20%20%20b"
+"   ******" -> "%20%20%20"
+"www google a com search **********" -> "www google a com search **********"
+
+
+1.4
+// Palindrome Permutation: Given a string, write a function to check if is a permutation of a palindrome. A
+// palindrome is a rearrangement of letters. The palindrome does not need to be limited to just dictionary
+// words.
+Positive
+""
+"a"
+"aaaaaaaaaaaa"
+"aaabbb"
+"aab"
+"abbab"
+"qwqwerre"
+"qrytweqwertyaaa"
+
+Negative
+"ab"
+"qwer"
+"asjdoiasfyuenasdflkhehee"
+"alpqalpqlapqcalpqbhbh"
+
+
+1.5
+// One Away: There are three types of edits that can be performed on strings: insert a character, remove a
+// character, or replace a character. Given two strings, write a function to check if they are one edit (or
+// zero edits) away.
+Positive
+"" ""
+"aa" "aa"
+"" "a"
+"a" ""
+"a" "b"
+"q" "qq"
+"qq" "q"
+
+Negative
+"ba" ""
+"word" "dwor"
+"ab" "ba"
+"a" "aaa"
+"qwer" "qrew"
+
+
+1.6
+// String Compression: Implement a method to perform basic string compression using the counts of repeated
+// characters. For example, the string "aabcccccaaa" would become "a2b1c5a3". If the compressed string would not
+// become smaller than the original string, your method should return the original string. You can assume the
+// string has only uppercase and lowercase letters.
+Positive
+"" -> ""
+"a" -> "a"
+"aa" -> "aa"
+"aaa" -> "a3"
+"aaabbbccc" "a3ba3c3"
+"abcdefgh" "abcdefgh"
+"aabgggarrraatttt" "a2b1g3a1r3a2t4"
+"aabgggarrraatt" "aabgggarrraatt"
