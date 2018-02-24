@@ -120,4 +120,15 @@ class Chapter1 {
         return String.valueOf(arr);
     }
 
+    // O(n) approach, a boolean array is flipped whenever a letter is found. Palindrome arrays at most have one 'on'.
+    private boolean problem4(String string) {
+        boolean[] boolarr = new boolean[26];
+        char[] arr = string.toCharArray();
+        int sum = 0;
+
+        for (char c: arr) boolarr[c - 'a'] = !boolarr[c - 'a'];
+        for (boolean b: boolarr) sum += b ? 1: 0;
+
+        return sum < 2;
+    }
 }
