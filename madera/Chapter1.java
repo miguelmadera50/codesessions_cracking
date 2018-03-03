@@ -53,6 +53,24 @@ class Chapter1 {
         assert problem3("a    b********").equals("a%20%20%20%20b");
         assert problem3("   ******").equals("%20%20%20");
         assert problem3("www google a com search **********").equals("www%20google%20a%20com%20search%20");
+
+        // Palindrome Permutation: Given a string, write a function to check if it a permutation of a palindrome. A
+        // palindrome is a rearrangement of letters. The palindrome  does not need to be limited to just dictionary
+        // words.
+        // Positive
+        assert problem4("");
+        assert problem4("a");
+        assert problem4("aaaaaaaaaaaa");
+        assert problem4("aab");
+        assert problem4("abbab");
+        assert problem4("qwqwerre");
+        assert problem4("qrytweqwertyaaa");
+
+        // Negative
+        assert !problem4("ab");
+        assert !problem4("qwer");
+        assert !problem4("asjdoiasfyuenasdflkhehee");
+        assert !problem4("alpqalpqlapqcalpqbhbht");
     }
 
     // O(n^2) approach, simple iteration
@@ -120,4 +138,15 @@ class Chapter1 {
         return String.valueOf(arr);
     }
 
+    // O(n) approach, a boolean array is flipped whenever a letter is found. Palindrome arrays at most have one 'on'.
+    private boolean problem4(String string) {
+        boolean[] boolarr = new boolean[26];
+        char[] arr = string.toCharArray();
+        int sum = 0;
+
+        for (char c: arr) boolarr[c - 'a'] = !boolarr[c - 'a'];
+        for (boolean b: boolarr) sum += b ? 1: 0;
+
+        return sum < 2;
+    }
 }
