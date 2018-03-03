@@ -101,13 +101,11 @@ class Chapter1 {
 
     // O(n) in-place approach, simply traversing backwards and inserting with two references
     private String problem3(String string) {
-        boolean initspaces = true;
         char[] arr = string.toCharArray();
         int last_index = string.length() - 1;
 
         for (int i = string.length() - 1; i >= 0 ; i--) {
-            if (initspaces && arr[i] == ' ') continue;
-            else initspaces = false;
+            if (arr[i] == '*') continue;
 
             if (arr[i] == ' ') {
                 arr[last_index] = '0';
