@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 class Chapter1 {
     Chapter1() {
-
         // Is Unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use
         // additional data structures?
 
@@ -31,6 +30,21 @@ class Chapter1 {
         assert !problem1b("qwertyuiopasdfghjklzxcvbnq");
         assert !problem1b("qwertyuiopasdfghjklzxcvbnzuythe");
         assert !problem1b("qwertyhnbgfdsabzxc");
+
+        // Check Permutation: Given two strings, write a method to decide of one is a permutation of the other.
+        // Positive - assuming only 26 chars
+        assert problem2("", "");
+        assert problem2("a", "a");
+        assert problem2("zzzzzzz", "zzzzzzz");
+        assert problem2("abcd", "dcba");
+        assert problem2("qwertty", "tqweryt");
+
+        // Negative - assuming only 26 chars
+        assert !problem2("a", "b");
+        assert !problem2("a", "aa");
+        assert !problem2("aaaaa", "aa");
+        assert !problem2("qwerty", "qwerti");
+        assert !problem2("miridso", "miridsd");
     }
 
     // O(n^2) approach, simple iteration
@@ -54,6 +68,25 @@ class Chapter1 {
         for (char c: arr) {
             if (boolarr[c - 'a']) return false;
             boolarr[c - 'a'] = true;
+        }
+        return true;
+    }
+
+    // O(n) approach, similar to last problem, using bit array to account for duplicate characters
+    private boolean problem2(String a, String b) {
+        if (a.length() != b.length()) return false;
+
+        int[] intarr = new int[26];
+        char[] a_arr = a.toCharArray();
+        char[] b_arr = b.toCharArray();
+
+        for (int i = 0; i < a.length(); i++) {
+            intarr[a_arr[i] - 'a']++;
+            intarr[b_arr[i] - 'a']--;
+        }
+
+        for (int i: intarr) {
+            if (i != 0) return false;
         }
         return true;
     }
