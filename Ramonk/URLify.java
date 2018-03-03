@@ -12,7 +12,12 @@ package mx.com.durango.codesessions;
 public class URLify {
     public static void main(String[] args) {
         String url = " hola uno";
-        String urlFormed = "";        
+        String urlFormed = URLify(url);
+        System.out.println("Url formed: " + urlFormed);
+    }
+    
+    public static String URLify(String url){
+        String urlFormed = ""; 
         for (int i = 0; i < url.length(); i++) {  
             String var = String.valueOf(url.charAt(i));
              if (" ".equals(var))
@@ -20,6 +25,6 @@ public class URLify {
              else 
                  urlFormed += var;                     
         }
-        System.out.println("Url formed: " + urlFormed);
+        return urlFormed;
     }
 }

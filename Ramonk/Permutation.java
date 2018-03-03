@@ -16,6 +16,12 @@ public class Permutation {
     public static void main(String[] args) {
         String string1 = "unouno";
         String string2 = "onuono";
+        boolean isPermutation = true;        
+        
+        System.out.println(string1 + " is permutation of " + string2 + "?: " + isPermutation);
+    }
+    
+    public static boolean Permutation (String string1, String string2){
         boolean isPermutation = true;
         Map <String, Integer> dictionary = new HashMap();
         for (int i = 0; i < string1.length(); i++) {
@@ -49,7 +55,6 @@ public class Permutation {
                 }                  
             }
         }
-        
-        System.out.println(string1 + " is permutation of " + string2 + "?: " + isPermutation);
+        return isPermutation;
     }
 }

@@ -10,15 +10,22 @@ package mx.com.durango.codesessions;
  * @author RAMON
  */
 public class IsUnique {
+
     public static void main(String[] args) {
-        String word = "hola"; 
-        boolean isUnique = false;
-        for (int i = 0; i < word.length(); i++){
-            String substring = word.substring(i+1, word.length());            
+        String word = "";
+        boolean isUnique = IsUnique(word);
+        System.out.println(word + " is unique?: " + isUnique);
+    }
+
+    public static boolean IsUnique(String word) {
+        boolean isUnique = true;
+        for (int i = 0; i < word.length(); i++) {
+            String substring = word.substring(i + 1, word.length());
             isUnique = !substring.contains(String.valueOf(word.charAt(i)));
-            if (!isUnique)
+            if (!isUnique) {
                 break;
+            }
         }
-        System.out.println(word + " is unique?: " + isUnique);        
+        return isUnique;
     }
 }

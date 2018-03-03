@@ -13,7 +13,13 @@ public class OneWay {
     public static void main(String[] args) {
         String word1 = "a";
         String word2 = "aaa";
-        boolean result = false;
+        boolean result = false;   
+        result = OneWay(word1, word2);
+        System.out.println("Are they one edit away?: " + result);
+    }
+    
+    public static boolean OneWay(String word1, String word2){
+        boolean result = false; 
         int diff = word1.length() - word2.length();
         
         if (diff > 1 || diff < -1){
@@ -29,9 +35,8 @@ public class OneWay {
             else{
                 result = add(word1, word2); 
             }
-        } 
-        
-        System.out.println("Are they one edit away?: " + result);
+        }
+        return result;
     }
     
     private static boolean replace(String word1, String word2){
