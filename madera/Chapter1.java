@@ -6,7 +6,6 @@ class Chapter1 {
     Chapter1() {
         // Is Unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use
         // additional data structures?
-
         // Positive, w/ data structures
         assert problem1a("");
         assert problem1a("a");
@@ -45,6 +44,15 @@ class Chapter1 {
         assert !problem2("aaaaa", "aa");
         assert !problem2("qwerty", "qwerti");
         assert !problem2("miridso", "miridsd");
+
+        // URLify: Write a method to replace all spaces in a string with '%20'. You may assume that the string has
+        // sufficient space at the end to hold the additional characters, and that you are given the 'true' length of
+        // the string.
+        assert problem3("a b**").equals("a%20b");
+        assert problem3("a b ****").equals("a%20b%20");
+        assert problem3("a    b********").equals("a%20%20%20%20b");
+        assert problem3("   ******").equals("%20%20%20");
+        assert problem3("www google a com search **********").equals("www%20google%20a%20com%20search%20");
     }
 
     // O(n^2) approach, simple iteration
@@ -90,4 +98,26 @@ class Chapter1 {
         }
         return true;
     }
+
+    // O(n) in-place approach, simply traversing backwards and inserting with two references
+    private String problem3(String string) {
+        char[] arr = string.toCharArray();
+        int last_index = string.length() - 1;
+
+        for (int i = string.length() - 1; i >= 0 ; i--) {
+            if (arr[i] == '*') continue;
+
+            if (arr[i] == ' ') {
+                arr[last_index] = '0';
+                arr[last_index - 1] = '2';
+                arr[last_index - 2] = '%';
+                last_index -= 3;
+            } else {
+                arr[last_index] = arr[i];
+                last_index--;
+            }
+        }
+        return String.valueOf(arr);
+    }
+
 }
