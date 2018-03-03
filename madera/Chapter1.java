@@ -4,7 +4,6 @@ import java.util.Arrays;
 
 class Chapter1 {
     Chapter1() {
-
         // Is Unique: Implement an algorithm to determine if a string has all unique characters. What if you cannot use
         // additional data structures?
 
@@ -31,6 +30,21 @@ class Chapter1 {
         assert !problem1b("qwertyuiopasdfghjklzxcvbnq");
         assert !problem1b("qwertyuiopasdfghjklzxcvbnzuythe");
         assert !problem1b("qwertyhnbgfdsabzxc");
+
+        // Check Permutation: Given two strings, write a method to decide of one is a permutation of the other.
+        // Positive - assuming only 26 chars
+        assert problem2("", "");
+        assert problem2("a", "a");
+        assert problem2("zzzzzzz", "zzzzzzz");
+        assert problem2("abcd", "dcba");
+        assert problem2("qwertty", "tqweryt");
+
+        // Negative - assuming only 26 chars
+        assert !problem2("a", "b");
+        assert !problem2("a", "aa");
+        assert !problem2("aaaaa", "aa");
+        assert !problem2("qwerty", "qwerti");
+        assert !problem2("miridso", "miridsd");
     }
 
     // O(n^2) approach, simple iteration
