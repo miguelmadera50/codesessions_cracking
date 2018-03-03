@@ -71,6 +71,26 @@ class Chapter1 {
         assert !problem4("qwer");
         assert !problem4("asjdoiasfyuenasdflkhehee");
         assert !problem4("alpqalpqlapqcalpqbhbht");
+
+        // One Away: There are three types of edits that can be performed on strings: insert a character, remove a
+        // character, or replace a character. Given two strings, write a function to check if they are one edit (or
+        // zero edits) away.
+        // Positive
+        assert problem5("", "");
+        assert problem5("aa", "aa");
+        assert problem5("", "a");
+        assert problem5("a", "");
+        assert problem5("a", "b");
+        assert problem5("q", "qq");
+        assert problem5("qq", "q");
+
+        // Negative
+        assert !problem5("ba", "");
+        assert !problem5("word", "dwor");
+        assert !problem5("ab", "ba");
+        assert !problem5("a", "aaa");
+        assert !problem5("qwer", "qrew");
+
     }
 
     // O(n^2) approach, simple iteration
@@ -148,5 +168,41 @@ class Chapter1 {
         for (boolean b: boolarr) sum += b ? 1: 0;
 
         return sum < 2;
+    }
+
+    // 0(n) max approach, for all cases, insertions are same as removals in this case
+    private boolean problem5(String a, String b) {
+        int a_len = a.length();
+        int b_len = b.length();
+        int len_dif = a_len - b_len;
+        int differences = 0;
+
+        // Base cases
+        if (a.equals(b)) return true;
+        if (len_dif > 1 || len_dif < -1) return false;
+
+        char[] a_arr = a.toCharArray();
+        char[] b_arr = b.toCharArray();
+
+        // Replacement case
+        if (a_len == b_len) {
+            for (int i = 0; i < a_len; i++) {
+                if (a_arr[i] != b_arr[i]) differences++;
+            }
+            return differences < 2;
+        }
+
+        // Only references, does not copy
+        char[] max_arr = (a_len > b_len) ? a_arr: b_arr;
+        char[] min_arr = (a_len < b_len) ? a_arr: b_arr;
+
+        // Insert (or remove) case
+        for (int i = 0; i < min_arr.length; i++) {
+            if (max_arr[i + differences] != min_arr[i]) {
+                if (differences > 0) return false;
+                differences++;
+            }
+        }
+        return true;
     }
 }
