@@ -93,7 +93,7 @@ Negative
 "a" -> "a"
 "aa" -> "aa"
 "aaa" -> "a3"
-"aaabbbccc" -> "a3ba3c3"
+"aaabbbccc" -> "a3b3c3"
 "abcdefgh" -> "abcdefgh"
 "aabgggarrraatttt" -> "a2b1g3a1r3a2t4"
 "aabgggarrraatt" -> "aabgggarrraatt"
