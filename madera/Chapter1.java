@@ -44,6 +44,15 @@ class Chapter1 {
         assert !problem2("aaaaa", "aa");
         assert !problem2("qwerty", "qwerti");
         assert !problem2("miridso", "miridsd");
+
+        // URLify: Write a method to replace all spaces in a string with '%20'. You may assume that the string has
+        // sufficient space at the end to hold the additional characters, and that you are given the 'true' length of
+        // the string.
+        assert problem3("a b**").equals("a%20b");
+        assert problem3("a b ****").equals("a%20b%20");
+        assert problem3("a    b********").equals("a%20%20%20%20b");
+        assert problem3("   ******").equals("%20%20%20");
+        assert problem3("www google a com search **********").equals("www%20google%20a%20com%20search%20");
     }
 
     // O(n^2) approach, simple iteration
