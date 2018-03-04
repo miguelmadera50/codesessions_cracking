@@ -7,57 +7,82 @@ from .unique_characters import unique_characters_no_aditional_structures, \
 class UniqueCharacterTest(unittest.TestCase):
 
     def test_single_character(self):
-        self.assertEqual(True, unique_characters_no_aditional_structures('A'))
+        self.assertEqual(True, unique_characters_no_aditional_structures('a'))
 
-    def test_different_capitalization_is_different(self):
+    def test_unique_chars(self):
         self.assertEqual(
             True,
-            unique_characters_no_aditional_structures('AaeEiIoOuU')
+            unique_characters_no_aditional_structures('abc')
         )
 
-    def test_characters_repeated(self):
-        self.assertEqual(
-            False,
-            unique_characters_no_aditional_structures('fghjklwfe')
-        )
-
-    def test_blank_space_is_considered_a_character(self):
-        self.assertEqual(
-            False,
-            unique_characters_no_aditional_structures('asd fgh jkl')
-        )
-
-    def test_unique_characters_in_string(self):
+    def test_unique_chars_2(self):
         self.assertEqual(
             True,
-            unique_characters_no_aditional_structures('asdf')
+            unique_characters_no_aditional_structures('qwertyuiopasdfghjklzxcvbnm')
         )
 
-    def test_single_character_aditional_structures(self):
-        self.assertEqual(True, unique_characters_aditional_structures('A'))
-
-    def test_different_capitalization_is_different_aditional_structures(self):
-        self.assertEqual(
-            True,
-            unique_characters_aditional_structures('AaeEiIoOuU')
-        )
-
-    def test_characters_repeated_aditional_structures(self):
+    def test_false_unique_chars(self):
         self.assertEqual(
             False,
-            unique_characters_aditional_structures('fghjklwfe')
+            unique_characters_no_aditional_structures('aa')
         )
 
-    def test_blank_space_is_considered_a_character_aditional_structures(self):
+    def test_false_unique_chars_2(self):
         self.assertEqual(
             False,
-            unique_characters_aditional_structures('asd fgh jkl')
+            unique_characters_no_aditional_structures('qwertyuiopasdfghjklzxcvbnq')
         )
 
-    def test_unique_characters_aditional_structures_in_string(self):
+    def test_false_unique_chars_3(self):
+        self.assertEqual(
+            False,
+            unique_characters_no_aditional_structures('qwertyuiopasdfghjklzxcvbnzuythe')
+        )
+
+    def test_false_unique_chars_4(self):
+        self.assertEqual(
+            False,
+            unique_characters_no_aditional_structures('qwertyhnbgfdsabzxc')
+        )
+
+    #//////////////////////
+    def test_single_character(self):
+        self.assertEqual(True, unique_characters_aditional_structures('a'))
+
+    def test_unique_chars(self):
         self.assertEqual(
             True,
-            unique_characters_aditional_structures('asdf')
+            unique_characters_aditional_structures('abc')
+        )
+
+    def test_unique_chars_2(self):
+        self.assertEqual(
+            True,
+            unique_characters_aditional_structures('qwertyuiopasdfghjklzxcvbnm')
+        )
+
+    def test_false_unique_chars(self):
+        self.assertEqual(
+            False,
+            unique_characters_aditional_structures('aa')
+        )
+
+    def test_false_unique_chars_2(self):
+        self.assertEqual(
+            False,
+            unique_characters_aditional_structures('qwertyuiopasdfghjklzxcvbnq')
+        )
+
+    def test_false_unique_chars_3(self):
+        self.assertEqual(
+            False,
+            unique_characters_aditional_structures('qwertyuiopasdfghjklzxcvbnzuythe')
+        )
+
+    def test_false_unique_chars_4(self):
+        self.assertEqual(
+            False,
+            unique_characters_aditional_structures('qwertyhnbgfdsabzxc')
         )
 
 
