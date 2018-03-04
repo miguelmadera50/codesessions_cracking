@@ -20,14 +20,16 @@ public class OneWay {
     
     public static boolean OneWay(String word1, String word2){
         boolean result = false; 
-        int diff = word1.length() - word2.length();
+        int length1 = word1.length();
+        int length2 = word2.length();
+        int diff = length1 - length2;
         
         if (diff > 1 || diff < -1){
             result = false;
         } else{
-            if (word1.length() == 1 || word2.length() == 1){
+            if (length1 == 1 || length2 == 1){
                 result = true;
-            } else if ((word1.length() == 2 && word2.length() == 1) || (word1.length() == 1 && word2.length() == 2)){
+            } else if ((length1 == 2 && length2 == 1) || (length1 == 1 && length2 == 2)){
                 result = true;
             }else if (diff == 0){
                 result = replace(word1, word2);

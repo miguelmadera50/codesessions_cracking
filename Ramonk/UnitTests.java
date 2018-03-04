@@ -88,4 +88,16 @@ public class UnitTests {
           assertEquals(false, OneWay.OneWay("a", "aaa"));
           assertEquals(false, OneWay.OneWay("qwer", "qrwe"));
      }
+     
+     @Test
+     public void Compression(){
+         assertEquals("", Compression.Compression(""));
+         assertEquals("a", Compression.Compression("a"));
+         assertEquals("aa", Compression.Compression("aa"));
+         assertEquals("a3", Compression.Compression("aaa"));
+         assertEquals("a3b3c3", Compression.Compression("aaabbbccc"));
+         assertEquals("abcdefgh", Compression.Compression("abcdefgh"));
+         assertEquals("a2b1g3a1r3a2t4", Compression.Compression("aabgggarrraatttt"));
+         assertEquals("aabgggarrraatt", Compression.Compression("aabgggarrraatt"));
+     }
 }
