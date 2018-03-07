@@ -100,4 +100,11 @@ public class UnitTests {
          assertEquals("a2b1g3a1r3a2t4", Compression.Compression("aabgggarrraatttt"));
          assertEquals("aabgggarrraatt", Compression.Compression("aabgggarrraatt"));
      }
+     
+     @Test
+     public void RotateMatrix (){
+        int[][] matrix = {{1, 2},{3, 4}};
+        int[][] matrixresult = {{3, 1},{4, 2}};
+        assertArrayEquals(matrixresult, RotateMatrix.RotateMatrix(matrix));       
+     }
 }
