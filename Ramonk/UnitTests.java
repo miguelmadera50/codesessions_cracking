@@ -107,4 +107,17 @@ public class UnitTests {
         int[][] matrixresult = {{3, 1},{4, 2}};
         assertArrayEquals(matrixresult, RotateMatrix.RotateMatrix(matrix));       
      }
+     
+     @Test
+     public void ZeroMatrix (){
+        int[][] matrix = {{1,0}, {0,4}};
+        int[][] matrixresult = {{0, 0},{0, 0}};
+        assertArrayEquals(matrixresult, ZeroMatrix.ZeroMatrix(matrix));
+        int[][] matrix2 = {{1, 2, 3}, {4,0,6}, {7,8,9}};
+        int[][] matrixresult2 = {{1, 0, 3}, {0,0,0}, {7,0,9}};
+        assertArrayEquals(matrixresult2, ZeroMatrix.ZeroMatrix(matrix2));
+        int[][] matrix3 = {{1, 1, 2, 3}, {2, 9, 0, 1}, {6,6,6,2}, {0,6,5,1}, {7,3,1,1}};
+        int[][] matrixresult3 = {{0, 1, 0, 3}, {0, 0, 0, 0}, {0,6,0,2}, {0,0,0,0}, {0,3,0,1}};
+        assertArrayEquals(matrixresult3, ZeroMatrix.ZeroMatrix(matrix3));
+     }
 }
