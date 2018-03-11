@@ -8,6 +8,7 @@ class Chapter4 {
     Chapter4() {
         // Route Between Nodes: Given a directed graph, design an algorithm to find out whether these is a route between
         // two nodes.
+        // TODO implement directed graph DS and then do bi-directional search (BFS) from both sides
 
         // Minimal Tree: Given a sorted (increasing order) array with unique integer elements, write an algorithm to
         // create a binary search tree with minimal height.
@@ -31,6 +32,13 @@ class Chapter4 {
         // Check Balanced: Implement a function to check if a binary tree is balanced. For the purposes of this
         // question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never
         // differ by more than one.
+        // DONE
+        BinaryTreeNode simple_tree = _create_problem_4_simple_tree();
+        BinaryTreeNode balanced_tree = _create_problem_4_balanced_tree();
+        BinaryTreeNode unbalanced_tree = _create_problem_4_unbalanced_tree();
+        assert problem_4(simple_tree);
+        assert problem_4(balanced_tree);
+        assert !problem_4(unbalanced_tree);
 
         // Validate BST: Implement a function to check if a binary tree is a binary search tree.
         BinaryTreeNode root_a = _create_problem_5_example_a();
@@ -42,6 +50,9 @@ class Chapter4 {
 
         // Successor: Write an algorithm to find the 'next' node of a given node in a binary search tree. You may
         // assume that each node has a link to its parent
+        ParentBinarySearchTreeNode problem_6_tree_a = _create_problem_6_tree_a();
+        ParentBinarySearchTreeNode problem_6_tree_b = _create_problem_6_tree_b();
+        // TODO problem 6 is WIP
 
         // Build Order: You are given a list of projects and a list of dependencies (which is a list of pairs of
         // projects, where the first project is dependant on the second project). All of a project's dependencies must
@@ -156,6 +167,35 @@ class Chapter4 {
         return root;
     }
 
+    private ParentBinarySearchTreeNode _create_problem_6_tree_a() {
+        ParentBinarySearchTreeNode root = new ParentBinarySearchTreeNode(8, null);
+        root.add(3);
+        root.add(10);
+        root.add(1);
+        root.add(6);
+        root.add(4);
+        root.add(7);
+        root.add(14);
+        root.add(13);
+        return root;
+    }
+
+    private ParentBinarySearchTreeNode _create_problem_6_tree_b() {
+        ParentBinarySearchTreeNode root = new ParentBinarySearchTreeNode(20, null);
+        root.add(10);
+        root.add(30);
+        root.add(5);
+        root.add(15);
+        root.add(2);
+        root.add(8);
+        root.add(13);
+        root.add(25);
+        root.add(23);
+        root.add(27);
+        root.add(40);
+        root.add(45);
+        return root;
+    }
 
     // Divide and conquer strategy, copies half of the array to each branch recursively
     // Results in a balanced binary tree of minimum size
@@ -217,7 +257,27 @@ class Chapter4 {
         }
     }
 
-    // In-order traversal of the tree, add everything to an ArrayList, then check if the arraylist is sorted
+    // Check each node (recursively) if its subtrees are off (in depth) by one
+    // O(2n) because of the arraylist append.
+    private boolean problem_4(BinaryTreeNode node) {
+        ArrayList<Boolean> depth_array = new ArrayList<>();
+        problem_4_iter(node, depth_array, 0);
+
+        for (boolean a: depth_array) if (!a) return false;
+        return true;
+    }
+
+    // Recursive function, returns subtree depth difference
+    private int problem_4_iter(BinaryTreeNode node, ArrayList<Boolean> arr, int depth) {
+        if (node == null) return depth;  // Base Case
+
+        int left_depth = problem_4_iter(node.left_child, arr, depth + 1);
+        int right_depth = problem_4_iter(node.right_child, arr, depth + 1);
+
+        arr.add(Math.max(left_depth, right_depth) - Math.min(left_depth, right_depth) < 2);
+        return Math.max(left_depth, right_depth);
+
+        // In-order traversal of the tree, add everything to an ArrayList, then check if the arraylist is sorted
     // Traversal and append are O(n) then last check is also O(n) -> O(2n)
     private boolean problem_5(BinaryTreeNode root) {
         ArrayList<Integer> arr = new ArrayList<>();
@@ -236,4 +296,32 @@ class Chapter4 {
         arr.add(node.data);
         problem_5_iter(arr, node.right_child);
     }
+
+    private ParentBinarySearchTreeNode problem_6(ParentBinarySearchTreeNode node) {
+        boolean has_left = node.left_child != null;
+        boolean has_right = node.right_child != null;
+
+        boolean parent_is_left = false;  // Should not be used without first checking has_parent
+        boolean has_parent = node.parent != null;
+        if (has_parent) parent_is_left = node.parent.left_child == node;
+
+        // Leaf nodes
+        if (!has_left && !has_right) {
+            if (!has_parent) return null;  // Only node in the tree
+            if (parent_is_left) return node.parent; // Left leaf node
+        }
+
+        // Non-leaves
+        if (has_right) return _problem_6_get_leftmost_of_right_child();
+        return _problem_6_get_next_right_parent(node);  // Any node that does not have right child (including leaf node)
+    }
+
+    private ParentBinarySearchTreeNode _problem_6_get_leftmost_of_right_child() {
+        return node;
+    }
+
+    private ParentBinarySearchTreeNode _problem_6_get_next_right_parent(ParentBinarySearchTreeNode node) {
+        return node;
+    }
+
 }
