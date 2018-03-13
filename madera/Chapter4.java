@@ -379,3 +379,22 @@ class Chapter4 {
     }
 
 }
+
+    private ParentBinarySearchTreeNode problem_6(ParentBinarySearchTreeNode node){
+        boolean has_left = node.left_child != null;
+        boolean has_right = node.right_child != null;
+
+        boolean parent_is_left = false;  // Should not be used without first checking has_parent
+        boolean has_parent = node.parent != null;
+        if (has_parent) parent_is_left = node.parent.left_child == node;
+
+        // Leaf nodes
+        if (!has_left && !has_right) {
+            if (!has_parent) return null;  // Only node in the tree
+            if (parent_is_left) return node.parent; // Left leaf node
+        }
+
+        // Non-leaves
+        if (has_right) return _problem_6_get_leftmost_of_right_child(node);
+        return _problem_6_get_next_right_parent(node);  // Any node that does not have right child (including leaf node)
+    }
