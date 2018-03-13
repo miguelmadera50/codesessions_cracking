@@ -130,6 +130,60 @@ class Chapter4 {
         return root;
     }
 
+    private BinaryTreeNode _create_problem_4_simple_tree() {
+        BinaryTreeNode root = new BinaryTreeNode(1);
+
+        // 1
+        // 2 3
+
+        root.left_child = new BinaryTreeNode(2);
+        root.right_child = new BinaryTreeNode(3);
+        return root;
+    }
+
+    private BinaryTreeNode _create_problem_4_balanced_tree() {
+        BinaryTreeNode root = new BinaryTreeNode(1);
+
+        // 1
+        // 2    3
+        // 4 5  6 7
+        // 8    9
+
+        root.left_child = new BinaryTreeNode(2);
+        root.right_child = new BinaryTreeNode(3);
+
+        root.left_child.left_child = new BinaryTreeNode(4);
+        root.left_child.right_child = new BinaryTreeNode(5);
+
+        root.right_child.left_child = new BinaryTreeNode(6);
+        root.right_child.right_child = new BinaryTreeNode(7);
+
+        root.left_child.left_child.left_child = new BinaryTreeNode(8);
+        root.right_child.left_child.right_child = new BinaryTreeNode(9);
+        return root;
+    }
+
+    private BinaryTreeNode _create_problem_4_unbalanced_tree() {
+        BinaryTreeNode root = new BinaryTreeNode(1);
+
+        // 1
+        // 2    3
+        // 4    6 7
+        // 8    9
+
+        root.left_child = new BinaryTreeNode(2);
+        root.right_child = new BinaryTreeNode(3);
+
+        root.left_child.left_child = new BinaryTreeNode(4);
+
+        root.right_child.left_child = new BinaryTreeNode(6);
+        root.right_child.right_child = new BinaryTreeNode(7);
+
+        root.left_child.left_child.left_child = new BinaryTreeNode(8);
+        root.right_child.left_child.right_child = new BinaryTreeNode(9);
+        return root;
+    }
+
     // Not BST
     private BinaryTreeNode _create_problem_5_example_a() {
         BinaryTreeNode root = new BinaryTreeNode(1);
