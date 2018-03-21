@@ -8,11 +8,22 @@ class Chapter4 {
     Chapter4() {
         // Route Between Nodes: Given a directed graph, design an algorithm to find out whether these is a route between
         // two nodes.
-        // TODO implement directed graph DS and then do bi-directional search (BFS) from both sides
+        DirectedGraphNode[] problem_1_graph = _create_problem_1_graph();  // Graph shown in this function comment
+
+        // Did this problem in both DFS and BFS
+        assert problem_1_dfs(problem_1_graph[0], problem_1_graph[5]);  // 1 -> 6
+        assert problem_1_dfs(problem_1_graph[6], problem_1_graph[5]);  // 7 -> 6
+        assert !problem_1_dfs(problem_1_graph[6], problem_1_graph[2]);  // 7 -> 3
+        assert !problem_1_dfs(problem_1_graph[0], problem_1_graph[6]);  // 1 -> 7
+
+        assert problem_1_bfs(problem_1_graph[0], problem_1_graph[5]);  // 1 -> 6
+        assert problem_1_bfs(problem_1_graph[6], problem_1_graph[5]);  // 7 -> 6
+        assert !problem_1_bfs(problem_1_graph[6], problem_1_graph[2]);  // 7 -> 3
+        assert !problem_1_bfs(problem_1_graph[0], problem_1_graph[6]);  // 1 -> 7
 
         // Minimal Tree: Given a sorted (increasing order) array with unique integer elements, write an algorithm to
         // create a binary search tree with minimal height.
-        BinarySearchTreeNode root_p2 = problem_2(new int[] {1,2,3,4,5,6,7,8,9});
+        BinarySearchTreeNode root_p2 = problem_2(new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9});
         assert _validate_binary_search_tree(root_p2);
 
         // List of Depths: Given a binary tree, design an algorithm which creates a linked list of all the nodes at each
@@ -24,10 +35,10 @@ class Chapter4 {
         //         7   8          9          0
         BinaryTreeNode root = _create_problem_3_sample_tree();
         LinkedList<LinkedList> linked_list = problem_3(root);
-        assert _compare_array_to_linked_list(linked_list.get(0), new int[] {1});
-        assert _compare_array_to_linked_list(linked_list.get(1), new int[] {2, 3});
-        assert _compare_array_to_linked_list(linked_list.get(2), new int[] {4, 5, 6});
-        assert _compare_array_to_linked_list(linked_list.get(3), new int[] {7, 8, 9, 0});
+        assert _compare_array_to_linked_list(linked_list.get(0), new int[]{1});
+        assert _compare_array_to_linked_list(linked_list.get(1), new int[]{2, 3});
+        assert _compare_array_to_linked_list(linked_list.get(2), new int[]{4, 5, 6});
+        assert _compare_array_to_linked_list(linked_list.get(3), new int[]{7, 8, 9, 0});
 
         // Check Balanced: Implement a function to check if a binary tree is balanced. For the purposes of this
         // question, a balanced tree is defined to be a tree such that the heights of the two subtrees of any node never
@@ -79,6 +90,38 @@ class Chapter4 {
         // positive or negative). Design and algorithm to count the number of paths that sum to a given value. The path
         // does not need to start or end at the root or a leaf, but it must go downwards (traveling from parent to
         // children nodes).
+    }
+
+    // TODO add a few test cases
+    // Returns all nodes, ones to check are - POSITIVE (1 -> 6, 7 -> 6), NEGATIVE (7 -> 3, 1 -> 7)
+    private DirectedGraphNode[] _create_problem_1_graph() {
+        //          -> 3
+        //        /    |
+        //       /     v
+        // 1 -> 2 ---> 5 -> 6
+        //       \     ^
+        //        \    |
+        //          -> 4 <- 7
+        DirectedGraphNode node_1 = new DirectedGraphNode(1);
+        DirectedGraphNode node_2 = new DirectedGraphNode(2);
+        DirectedGraphNode node_3 = new DirectedGraphNode(3);
+        DirectedGraphNode node_4 = new DirectedGraphNode(4);
+        DirectedGraphNode node_5 = new DirectedGraphNode(5);
+        DirectedGraphNode node_6 = new DirectedGraphNode(6);
+        DirectedGraphNode node_7 = new DirectedGraphNode(7);
+
+        node_1.add_adjacent(node_2);
+        node_2.add_adjacent(node_3);
+        node_2.add_adjacent(node_4);
+
+        node_2.add_adjacent(node_5);
+        node_3.add_adjacent(node_5);
+        node_4.add_adjacent(node_5);
+
+        node_5.add_adjacent(node_6);
+        node_7.add_adjacent(node_4);
+
+        return new DirectedGraphNode[] {node_1, node_2, node_3, node_4, node_5, node_6, node_7};
     }
 
     private boolean _compare_array_to_linked_list(LinkedList<Integer> list, int[] arr) {
@@ -251,6 +294,38 @@ class Chapter4 {
         return root;
     }
 
+    private boolean problem_1_dfs(DirectedGraphNode start, DirectedGraphNode target) {
+        return dfs_iter(start, target, new ArrayList<>());
+    }
+
+    // Recursively search each branch, store visited nodes in array
+    private boolean dfs_iter(DirectedGraphNode start, DirectedGraphNode target, ArrayList<DirectedGraphNode> visited) {
+        if (start.data == target.data) return true;
+        visited.add(start);
+
+        for (DirectedGraphNode node : start.adjacent_nodes) {
+            if (!visited.contains(node)) return dfs_iter(node, target, visited);
+        }
+        return false;
+    }
+
+    private boolean problem_1_bfs(DirectedGraphNode start, DirectedGraphNode target) {
+        DirectedGraphNodeQueue queue = new DirectedGraphNodeQueue();
+        ArrayList<DirectedGraphNode> visited = new ArrayList<>();
+        queue.enqueue(start);
+
+        while (!queue.isEmpty()) {
+            DirectedGraphNode node = queue.dequeue();
+            if (node.data == target.data) return true;
+
+            visited.add(node);
+            for (DirectedGraphNode adjacent_node : node.adjacent_nodes) {
+                if (!visited.contains(adjacent_node)) queue.enqueue(adjacent_node);
+            }
+        }
+        return false;
+    }
+
     // Divide and conquer strategy, copies half of the array to each branch recursively
     // Results in a balanced binary tree of minimum size
     // Has 1 call for each of the nodes of the tress, so O(n log(n))
@@ -297,7 +372,7 @@ class Chapter4 {
         return array;
     }
 
-    private void problem_3_iter(LinkedList<LinkedList> array, BinaryTreeNode node, int level){
+    private void problem_3_iter(LinkedList<LinkedList> array, BinaryTreeNode node, int level) {
         if (node != null) {
             try {
                 array.get(level).add(node.data);
@@ -307,7 +382,7 @@ class Chapter4 {
                 array.add(arr);
             }
             problem_3_iter(array, node.left_child, level + 1);
-            problem_3_iter(array, node.right_child , level + 1);
+            problem_3_iter(array, node.right_child, level + 1);
         }
     }
 
@@ -317,7 +392,7 @@ class Chapter4 {
         ArrayList<Boolean> depth_array = new ArrayList<>();
         problem_4_iter(node, depth_array, 0);
 
-        for (boolean a: depth_array) if (!a) return false;
+        for (boolean a : depth_array) if (!a) return false;
         return true;
     }
 
@@ -332,23 +407,52 @@ class Chapter4 {
         return Math.max(left_depth, right_depth);
 
         // In-order traversal of the tree, add everything to an ArrayList, then check if the arraylist is sorted
-    // Traversal and append are O(n) then last check is also O(n) -> O(2n)
-    private boolean problem_5(BinaryTreeNode root) {
-        ArrayList<Integer> arr = new ArrayList<>();
-        problem_5_iter(arr, root);
+        // Traversal and append are O(n) then last check is also O(n) -> O(2n)
+        private boolean problem_5 (BinaryTreeNode root){
+            ArrayList<Integer> arr = new ArrayList<>();
+            problem_5_iter(arr, root);
 
-        for (int i = 0; i < arr.size() - 1; i++) {
-            if (arr.get(i) > arr.get(i + 1)) return false;
+            for (int i = 0; i < arr.size() - 1; i++) {
+                if (arr.get(i) > arr.get(i + 1)) return false;
+            }
+            return true;
         }
-        return true;
-    }
 
-    // In order traversal
-    private void problem_5_iter(ArrayList<Integer> arr, BinaryTreeNode node) {
-        if (node == null) return;
-        problem_5_iter(arr, node.left_child);
-        arr.add(node.data);
-        problem_5_iter(arr, node.right_child);
+        // In order traversal
+        private void problem_5_iter (ArrayList < Integer > arr, BinaryTreeNode node){
+            if (node == null) return;
+            problem_5_iter(arr, node.left_child);
+            arr.add(node.data);
+            problem_5_iter(arr, node.right_child);
+        }
+
+        private ParentBinarySearchTreeNode problem_6 (ParentBinarySearchTreeNode node){
+            boolean has_left = node.left_child != null;
+            boolean has_right = node.right_child != null;
+
+            boolean parent_is_left = false;  // Should not be used without first checking has_parent
+            boolean has_parent = node.parent != null;
+            if (has_parent) parent_is_left = node.parent.left_child == node;
+
+            // Leaf nodes
+            if (!has_left && !has_right) {
+                if (!has_parent) return null;  // Only node in the tree
+                if (parent_is_left) return node.parent; // Left leaf node
+            }
+
+            // Non-leaves
+            if (has_right) return _problem_6_get_leftmost_of_right_child();
+            return _problem_6_get_next_right_parent(node);  // Any node that does not have right child (including leaf node)
+        }
+
+        private ParentBinarySearchTreeNode _problem_6_get_leftmost_of_right_child () {
+            return node;
+        }
+
+        private ParentBinarySearchTreeNode _problem_6_get_next_right_parent (ParentBinarySearchTreeNode node){
+            return node;
+        }
+
     }
 
     private ParentBinarySearchTreeNode problem_6(ParentBinarySearchTreeNode node) {
@@ -366,35 +470,7 @@ class Chapter4 {
         }
 
         // Non-leaves
-        if (has_right) return _problem_6_get_leftmost_of_right_child();
-        return _problem_6_get_next_right_parent(node);  // Any node that does not have right child (including leaf node)
-    }
-
-    private ParentBinarySearchTreeNode _problem_6_get_leftmost_of_right_child() {
-        return node;
-    }
-
-    private ParentBinarySearchTreeNode _problem_6_get_next_right_parent(ParentBinarySearchTreeNode node) {
-        return node;
-    }
-
-}
-
-    private ParentBinarySearchTreeNode problem_6(ParentBinarySearchTreeNode node){
-        boolean has_left = node.left_child != null;
-        boolean has_right = node.right_child != null;
-
-        boolean parent_is_left = false;  // Should not be used without first checking has_parent
-        boolean has_parent = node.parent != null;
-        if (has_parent) parent_is_left = node.parent.left_child == node;
-
-        // Leaf nodes
-        if (!has_left && !has_right) {
-            if (!has_parent) return null;  // Only node in the tree
-            if (parent_is_left) return node.parent; // Left leaf node
-        }
-
-        // Non-leaves
         if (has_right) return _problem_6_get_leftmost_of_right_child(node);
         return _problem_6_get_next_right_parent(node);  // Any node that does not have right child (including leaf node)
     }
+}
