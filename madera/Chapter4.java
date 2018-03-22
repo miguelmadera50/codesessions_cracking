@@ -61,9 +61,31 @@ class Chapter4 {
 
         // Successor: Write an algorithm to find the 'next' node of a given node in a binary search tree. You may
         // assume that each node has a link to its parent
-        ParentBinarySearchTreeNode problem_6_tree_a = _create_problem_6_tree_a();
-        ParentBinarySearchTreeNode problem_6_tree_b = _create_problem_6_tree_b();
-        // TODO problem 6 is WIP
+        ParentBinarySearchTreeNode problem_6_root_a = _create_problem_6_tree_a();  // Tree diagram in function
+        assert problem_6(problem_6_root_a.get_node(1)).data == 3;
+        assert problem_6(problem_6_root_a.get_node(3)).data == 4;
+        assert problem_6(problem_6_root_a.get_node(4)).data == 6;
+        assert problem_6(problem_6_root_a.get_node(6)).data == 7;
+        assert problem_6(problem_6_root_a.get_node(7)).data == 8;
+        assert problem_6(problem_6_root_a.get_node(8)).data == 10;
+        assert problem_6(problem_6_root_a.get_node(10)).data == 13;
+        assert problem_6(problem_6_root_a.get_node(13)).data == 14;
+        assert problem_6(problem_6_root_a.get_node(14)) == null;
+
+        ParentBinarySearchTreeNode problem_6_root_b = _create_problem_6_tree_b();  // Tree diagram in function
+        assert problem_6(problem_6_root_b.get_node(2)).data == 5;
+        assert problem_6(problem_6_root_b.get_node(5)).data == 8;
+        assert problem_6(problem_6_root_b.get_node(8)).data == 10;
+        assert problem_6(problem_6_root_b.get_node(10)).data == 13;
+        assert problem_6(problem_6_root_b.get_node(13)).data == 15;
+        assert problem_6(problem_6_root_b.get_node(15)).data == 20;
+        assert problem_6(problem_6_root_b.get_node(20)).data == 23;
+        assert problem_6(problem_6_root_b.get_node(23)).data == 25;
+        assert problem_6(problem_6_root_b.get_node(25)).data == 27;
+        assert problem_6(problem_6_root_b.get_node(27)).data == 30;
+        assert problem_6(problem_6_root_b.get_node(30)).data == 40;
+        assert problem_6(problem_6_root_b.get_node(40)).data == 45;
+        assert problem_6(problem_6_root_b.get_node(45)) == null;
 
         // Build Order: You are given a list of projects and a list of dependencies (which is a list of pairs of
         // projects, where the first project is dependant on the second project). All of a project's dependencies must
