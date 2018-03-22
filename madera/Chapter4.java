@@ -316,6 +316,26 @@ class Chapter4 {
         return root;
     }
 
+    // Returns 1 and 11 -> 7
+    private ParentBinarySearchTreeNode[] _create_problem_8_tree() {
+        //          2
+        //      7       5
+        //   1    6        9
+        //       4  11    4
+        ParentBinarySearchTreeNode root = new ParentBinarySearchTreeNode(2, null);
+        root.left_child = new ParentBinarySearchTreeNode(7, root);
+        root.right_child = new ParentBinarySearchTreeNode(5, root);
+
+        root.left_child.left_child = new ParentBinarySearchTreeNode(1, root.left_child);
+        root.left_child.right_child = new ParentBinarySearchTreeNode(6, root.left_child);
+        root.left_child.right_child.left_child = new ParentBinarySearchTreeNode(4, root.left_child.right_child);
+        root.left_child.right_child.right_child = new ParentBinarySearchTreeNode(11, root.left_child.right_child);
+
+        root.right_child.right_child = new ParentBinarySearchTreeNode(9, root.right_child);
+        root.right_child.right_child.left_child = new ParentBinarySearchTreeNode(4, root.right_child.right_child);
+        return new ParentBinarySearchTreeNode[] {root.left_child.left_child, root.left_child.right_child.right_child};
+    }
+
     private boolean problem_1_dfs(DirectedGraphNode start, DirectedGraphNode target) {
         return dfs_iter(start, target, new ArrayList<>());
     }
@@ -495,4 +515,43 @@ class Chapter4 {
         if (has_right) return _problem_6_get_leftmost_of_right_child(node);
         return _problem_6_get_next_right_parent(node);  // Any node that does not have right child (including leaf node)
     }
+
+    // Stack operations are O(1), entire operation is O(n)
+    private ParentBinarySearchTreeNode problem_8_data_structures(ParentBinarySearchTreeNode node_a, ParentBinarySearchTreeNode node_b) {
+        Stack<ParentBinarySearchTreeNode> stack_a = new Stack<>();
+        Stack<ParentBinarySearchTreeNode> stack_b = new Stack<>();
+
+        // Push all parents onto stack
+        while (node_a != null) {
+            stack_a.push(node_a);
+            node_a = node_a.parent;
+        }
+        while (node_b != null) {
+            stack_b.push(node_b);
+            node_b = node_b.parent;
+        }
+
+        // First pop is guaranteed to be tree root
+        ParentBinarySearchTreeNode popped_val_a = stack_a.pop();
+
+        // When they don't match, its because tree has diverged, and either parent can be returned
+        while(popped_val_a == stack_b.pop()) popped_val_a = stack_a.pop();
+        return popped_val_a.parent;
+    }
+
+    // Nested loop approach, checking each of the a parents against every b_parent until the root. O(n^2)
+    private ParentBinarySearchTreeNode problem_8_no_data_structures(ParentBinarySearchTreeNode node_a, ParentBinarySearchTreeNode node_b) {
+        while (node_a != null) {
+            ParentBinarySearchTreeNode node = node_b;
+
+            while (node != null) {
+                if (node_a == node) return node_a;
+                node = node.parent;
+            }
+
+            node_a = node_a.parent;
+        }
+        return null;
+    }
+
 }
